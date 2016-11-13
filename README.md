@@ -10,5 +10,5 @@ CONTENTS:
 	
 	Code:
 		1. pandas_script_PCA_MDS.ipynb:  Does PCA, loads data into Pandas.
-		2. data (directory): nba player data
+		2. data (directory)
 			3a. stats.csv: first scrape of nba player data.
