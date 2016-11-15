@@ -15,12 +15,13 @@ class BBallRefSpider(scrapy.Spider):
         west = response.css('#confs_standings_W a::attr(href)').extract()
         urls = east + west
 
+        urls = ['/teams/DEN/2017.html' ,'/teams/MIN/2017.html']
         for url in urls:
             yield scrapy.Request('http://www.basketball-reference.com' + url, callback=self.parse_team) 
 
     def parse_team(self, response):        
         urls = response.css('#roster td[data-stat="player"] a::attr(href)').extract()
-        for url in urls:
+        for url in ['/players/g/gallida01.html']:     # urls:
             yield scrapy.Request('http://www.basketball-reference.com' + url, callback=self.parse_player) 
 
     def parse_player(self, response):  

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Scrapy settings for quotesbot project
+# Scrapy settings for bballrefbot project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -9,10 +9,10 @@
 #     http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 #     http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = 'quotesbot'
+BOT_NAME = 'bref'
 
-SPIDER_MODULES = ['quotesbot.spiders']
-NEWSPIDER_MODULE = 'quotesbot.spiders'
+SPIDER_MODULES = ['bref.spiders']
+NEWSPIDER_MODULE = 'bref.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
