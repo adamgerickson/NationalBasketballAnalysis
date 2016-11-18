@@ -1,0 +1,91 @@
+,full_var_name,bballref_table,Off_or_Def,FG_Ast_Rbd_Stl_Blk_Tov_Usg_or_Adv,pct_Avg_or_Absolute
+dws,defensive win shares,Advanced,Defense,Adv,Avg
+dbpm,defensive Box Plus/Minus,Advanced,Defense,Adv,TBD
+drb_pct,defensive rebound %percentage,Advanced,Defense,Rbd,%
+def_rtg,defensive rating: estimate points allowed per ...,Per100Poss,Defense,Adv,TBD
+stl_per_poss,stl_per_poss,Per100Poss,Defense,Stl,Avg
+drb_per_poss,Defensive Rebounds_per_poss,Per100Poss,Defense,Rbd,Avg
+blk_per_poss,block _per_poss,Per100Poss,Defense,Blk,Avg
+blk_per_g,block Per Game,PerGame,Defense,Blk,Avg
+drb_per_g,Defensive Rebounds Per Game,PerGame,Defense,Rbd,Avg
+stl_per_g,Steals per game,PerGame,Defense,Stl,Avg
+ws_per_48,win_shares_per_48_min,Advanced,N/A,Adv,Avg
+ws,win shares,Advanced,N/A,Adv,Abs
+vorp,Value over replacement player,Advanced,N/A,Adv,TBD
+bpm,Box Plus/Minus,Advanced,N/A,Adv,TBD
+per,P.E.R. player efficiency rating,Advanced,N/A,Usg,TBD
+season,Season Year,Bio,N/A,N/A,N/A
+lg_id,League ID,Bio,N/A,N/A,N/A
+pos,Position,Bio,N/A,N/A,N/A
+name,name,Bio,N/A,N/A,N/A
+team_id,team_id,Bio,N/A,N/A,N/A
+age,Age,Bio,N/A,N/A,N/A
+gs,Games Started,Total,N/A,N/A,Abs
+g,Games,Total,N/A,N/A,Abs
+trb_per_poss,Total rebounds_per_poss,Per100Poss,N/A,Rbd,Avg
+pf_per_poss,Fouls (personal) _per_poss,Per100Poss,N/A,N/A,Avg
+mp,minutes played,PerG,N/A,Usg,Avg
+mp_per_g,minutes played Per Game,PerGame,N/A,Usg,Avg
+pf_per_g,Fouls (personal) Per Game,PerGame,N/A,N/A,Avg
+obpm,offensive Box Plus/Minus,Advanced,Offense,Adv,TBD
+ows,offensive win shares,Advanced,Offense,Adv,TBD
+off_rtg,Offensive rating,Per100Poss,Offense,Adv,TBD
+fga_per_poss,fga_per_poss,Per100Poss,Offense,FG,Avg
+pts_per_poss,Points_per_100_poss,Per100Poss,Offense,FG,Avg
+fg2a_per_poss,2-FG attempts per possesion,Per100Poss,Offense,FG,Avg
+tov_per_poss,Turnover_per_poss,Per100Poss,Offense,Tov,Avg
+orb_per_poss,offensive rebound per possession,Per100Poss,Offense,Rbd,Avg
+fg3_per_poss,3-FG per possession,Per100Poss,Offense,FG,Avg
+ft_per_poss,Free Throw per possession,Per100Poss,Offense,FG,Avg
+fta_per_poss,Free throw attempt per possesion,Per100Poss,Offense,FG,Avg
+fg_per_poss,FG per possession,Per100Poss,Offense,FG,Avg
+ast_per_poss,Assists_per_poss,Per100Poss,Offense,Ast,Avg
+fg3a_per_poss,3-FGA _per_poss,Per100Poss,Offense,FG,Avg
+fg2_per_poss,2-FG per possession,Per100Poss,Offense,FG,Avg
+trb_per_g,Total rebounds Per Game,PerGame,Offense,Rbd,Avg
+ast_per_g,Assists Per Game,PerGame,Offense,Ast,Avg
+fg_per_g,FG per game,PerGame,Offense,FG,Avg
+tov_per_g,Turnover Per Game,PerGame,Offense,Tov,Avg
+ft_per_g,Free Throw Per Game,PerGame,Offense,FG,Avg
+fg3a_per_g,fg3a Per Game,PerGame,Offense,FG,Avg
+fta_per_g,Free throw attempt per game,PerGame,Offense,FG,Avg
+fg2_per_g,2-FG Per Game,PerGame,Offense,FG,Avg
+orb_per_g,Offensive Rebounds Per Game,PerGame,Offense,Rbd,Avg
+pts_per_g,Points Per Game,PerGame,Offense,FG,Avg
+fg3_per_g,3-FG Per Game,PerGame,Offense,FG,Avg
+fg2a_per_g,2-FGA Per Game,PerGame,Offense,FG,Avg
+fga_per_g,FGA per game,PerGame,Offense,FG,Avg
+pct_fg2_dunk,%percent of 2pt fg that are dunks,Shooting,Offense,FG,%
+fg3a_pct_fga,%percent of fga that are 3-pointer,Shooting,Offense,FG,%
+fg3_heave,3-FG heaves made,Shooting,Offense,FG,Abs
+fg3a_heave,3-FG attempts that are heaves,Shooting,Offense,FG,Abs
+fg2_dunk,Number of Succesful Dunks,Shooting,Offense,FG,Abs
+avg_dist,Average distance of shot,Shooting,Offense,FG,Avg
+blk_pct,Block %percentage,Advanced,Defense,Blk,%
+stl_pct,stl_%percentage,Advanced,Defense,Stl,%
+usg_pct,Usage %percentage,Advanced,N/A,Usg,%
+trb_pct,Total rebounds_%percentage,Per100Poss,N/A,Rbd,%
+ts_pct,true_shooting_%percentage,Advanced,Offense,FG,%
+orb_pct,offensive rebound %percentage,Advanced,Offense,Rbd,%
+ast_pct,assist %percentage,Advanced,Offense,Ast,%
+tov_pct,Turnover_%percentage,Advanced,Offense,Tov,%
+efg_pct,effective FG %percentage,Shooting,Offense,FG,%
+fg_pct,fg_%percentage,Shooting,Offense,FG,%
+fg2_pct_ast,%percentage of 2-FG that are assisted,Shooting,Offense,FG,%
+fg3_pct_ast,%percentage of 3-FG that are assisted,Shooting,Offense,FG,%
+fg2_pct,2-FG %percentage,Shooting,Offense,FG,%
+ft_pct,free throw %percentage,Shooting,Offense,FG,%
+pct_fga_10_16,%percentage of fga taken between 10 and 16 feet,Shooting,Offense,FG,%
+fg_pct_10_16,FG %percentage on shots between 10 and 16 feet,Shooting,Offense,FG,%
+fg_pct_00_03,FG %percentage on shots between 00 and 03 feet,Shooting,Offense,FG,%
+fg3_pct,3-FG %percentage,Shooting,Offense,FG,%
+fg_pct_16_xx,FG %percentage 16 feet and greater,Shooting,Offense,FG,%
+pct_fga_03_10,%percentage of FGA between 03 and 10 feet,Shooting,Offense,FG,%
+fg2a_pct_fga,2-FGA as %percentage of FGA,Shooting,Offense,FG,%
+pct_fg3a_corner,%percentage_fg3a_corner,Shooting,Offense,FG,%
+fg3a_per_fga_pct,3-FGA per FGA as a %percentage,Shooting,Offense,FG,%
+fg_pct_03_10,fg_%percentage_03_10,Shooting,Offense,FG,%
+pct_fga_00_03,%percentage_fga_00_03,Shooting,Offense,FG,%
+fta_per_fga_pct,Free Throw attempt per field goal attempt %per...,Shooting,Offense,FG,%
+pct_fga_16_xx,%percentage of FGA 16 feet and greater,Shooting,Offense,FG,%
+fg3_pct_corner,3-FG %percentage from the corner,Shooting,Offense,FG,%
