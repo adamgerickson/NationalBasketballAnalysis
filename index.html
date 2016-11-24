@@ -1,28 +1,11 @@
-
 <!DOCTYPE html>
 <html lang="en">
   
   <head>
     <meta charset="utf-8">
     <title>D3 NBAnalysis</title>
-    <h1>PCA on Career Data</h1>
-   <script type="text/javascript" src="d3.min.js"></script>
-        <!-- <style type="text/css">
-        
-        .axis path,
-        .axis line {
-          fill: none;
-          stroke: black;
-          shape-rendering: crispEdges;
-        }
-        
-        .axis text {
-          font-family: sans-serif;
-          font-size: 11px;
-        }
-
-        </style> -->
-
+    <h1>National Basketball Analysis</h1>
+    <script type="text/javascript" src="d3.min.js"></script>
     <style>
       body {
         font: 11px sans-serif;
@@ -34,7 +17,6 @@
         stroke: #000;
         shape-rendering: crispEdges;
       }
-
       .tooltip {
         position: absolute;
         width: 100px;
@@ -52,40 +34,11 @@
 
   <body>
     <script type="text/javascript">
-
- 
-      
-      
-      //Static dataset
-      // var dataset = [
-      //         [5, 20], [480, 90], [250, 50], [100, 33], [330, 95],
-      //         [410, 12], [475, 44], [25, 67], [85, 21], [220, 88],
-      //         [600, 150]
-      //         ];
-
-      // //Dynamic, random dataset
-      // var dataset = [];         //Initialize empty array
-      // var numDataPoints = 50;       //Number of dummy data points to create
-      // var xRange = Math.random() * 1000;  //Max range of new x values
-      // var yRange = Math.random() * 1000;  //Max range of new y values
-      // for (var i = 0; i < numDataPoints; i++) {         //Loop numDataPoints times
-      //   var newNumber1 = Math.round(Math.random() * xRange);  //New random integer
-      //   var newNumber2 = Math.round(Math.random() * yRange);  //New random integer
-      //   dataset.push([newNumber1, newNumber2]);         //Add new number to array
-      // }
-
-      // // load data
-      // d3.csv("cereal.csv", function(error, data) {
-
-      //   // change string (from CSV) into number format
-      //   data.forEach(function(d) {
-      //     d.Calories = +d.Calories;
-      //     d["Protein (g)"] = +d["Protein (g)"];
-      // //    console.log(d);
-      //   });
-
+  
+	  // |------------------------------------BEGIN SCRIPT-----------------------------------| // 
+	  
+	  // Load the Dataset, then call a function which does everything else defined in the file
       var dataset = new Array();
-
       d3.csv("ball.csv", function(data) 
         {
           data.forEach(function(d) 
@@ -98,129 +51,88 @@
             })
           everythingelse();
         });
-
       console.log(dataset)
+	  
+	  
+	  //everythingelse() is below	  
+	  // Below is literally the whole script put into one function, so it could be called on the data above as it was loaded
+      function everythingelse() {
 
-function everythingelse() {
-
-      //Width and height
-      var margin = {top: 100, right: 50, bottom: 50, left: 50},
+      //Width and height for the SVG
+      var margin = {top: 60, right: 50, bottom: 80, left: 80},
       w = 800 - margin.left - margin.right,
       h = 500 - margin.top - margin.bottom;
-
-
-      //Create scale functions
-      var xScale = d3.scaleLinear()
-                 .domain([
-                      d3.min(dataset, function(d) { return d[0]; }), 
-                      d3.max(dataset, function(d) { return d[0]; })])
-                 .range([margin.left, w + margin.left]);
-
-      var xValue = function(d) {return d[0];} // data -> scaled x value
-
-      var yScale = d3.scaleLinear()
-                 .domain([
-                      d3.min(dataset, function(d) { return d[1]; }), 
-                      d3.max(dataset, function(d) { return d[1]; })])
-                 .range([h + margin.top, margin.top]);
-
-      var yValue = function(d) {return d[1];} // data -> scaled y value
-
-      var rScale = d3.scaleLinear()
-                 .domain([
-                      d3.min(dataset, function(d) { return d[1]; }), 
-                      d3.max(dataset, function(d) { return d[1]; })])  
-                 .range([2, 5]);
-
-
-      // printfunc = dataset.forEach(function(d) 
-      //       {
-      //         console.log(
-      //           [d[0], xScale(d[0])  ]
-      //           )
-      //       })
-
-      console.log(dataset[0]);
-      // printfunc;
-
-      //Create SVG element
+	  
+	  //Create SVG element
       var svg = d3.select("body")
-            .append("svg")
-            .attr("width", w + margin.left + margin.right)
-            .attr("height", h + margin.top + margin.bottom);
-            // .append("g")
-            //     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+		.append("svg")
+		.attr("width", w + margin.left + margin.right)
+		.attr("height", h + margin.top + margin.bottom);
 
-      // add the tooltip area to the webpage
+      //Create scale functions and scale data 
+      var xScale = d3.scaleLinear()
+		 .domain([
+			  d3.min(dataset, function(d) { return d[0]; }), 
+			  d3.max(dataset, function(d) { return d[0]; })])
+		 .range([margin.left, w + margin.left]);
+      var xValue = function(d) {return d[0];} // data -> scaled x value
+      var yScale = d3.scaleLinear()
+		 .domain([
+			  d3.min(dataset, function(d) { return d[1]; }), 
+			  d3.max(dataset, function(d) { return d[1]; })])
+		 .range([h + margin.top, margin.top]);
+      var yValue = function(d) {return d[1];} // data -> scaled y value
+      var rScale = d3.scaleLinear()
+		 .domain([
+			  d3.min(dataset, function(d) { return d[1]; }), 
+			  d3.max(dataset, function(d) { return d[1]; })])  
+		 .range([2, 5]);
+      console.log(dataset[0]);
+
+	  // Create tooltip element
       var tooltip = d3.select("body").append("div")
        .attr("class", "tooltip")
        .style("opacity", 100);
 
-      //Create circles
+      //Create circles, with the tooltip too
       svg.selectAll("circle")
          .data(dataset)
          .enter()
          .append("circle")
          .attr("cx", function(d) {
-            return xScale(d[0]);
+           return xScale(d[0]);
          })
          .attr("cy", function(d) {
-            return yScale(d[1]);
+           return yScale(d[1]);
          })
          .attr("r", function(d) {
            // return Math.abs(rScale(d[1]));
-           return 3
+           return 3.25
          })
-
+		 .attr("fill", function(d) {
+		   return "rgb(0, 0, " + ((d[0] + d[1]) * 10) + ")";
+		   })
         .on("mouseover", function(d) {
             tooltip.transition()
-                 .duration(200)
-                 .style("opacity", .9);
+              .duration(200)
+              .style("opacity", .9);
             tooltip.html
             (
             d[2] + "<br/> (" 
             + (Math.round(xValue(d) * 100) / 100) + ", " 
             + (Math.round(yValue(d) * 100) / 100) + ")"
             )
-               .style("left", (d3.event.pageX + 5) + "px")
-               .style("top", (d3.event.pageY - 28) + "px");
+             .style("left", (d3.event.pageX + 5) + "px")
+             .style("top", (d3.event.pageY - 28) + "px");
         })
         .on("mouseout", function(d) {
             tooltip.transition()
-                 .duration(500)
-                 .style("opacity", 0);
+              .duration(500)
+              .style("opacity", 0);
         });
 
-
-
-                  /*
-                  //Create labels
-                  svg.selectAll("text")
-                     .data(dataset)
-                     .enter()
-                     .append("text")
-                     .text(function(d) {
-                        return d[0] + "," + d[1];
-                     })
-                     .attr("x", function(d) {
-                        return xScale(d[0]);
-                     })
-                     .attr("y", function(d) {
-                        return yScale(d[1]);
-                     })
-                     .attr("font-family", "sans-serif")
-                     .attr("font-size", "11px")
-                     .attr("fill", "red");
-                    */
-                  
-
-      //Define X axis
-      var xAxis = d3.axisBottom(xScale);
-
-      //Define Y axis
-      var yAxis = d3.axisLeft(yScale);
-
       //Create X axis
+	  var xAxis = d3.axisBottom(xScale);
       svg.append("g")
         .attr("class", "axis")
         .attr("transform", "translate(0," 
@@ -229,17 +141,92 @@ function everythingelse() {
         .call(xAxis);
       
       //Create Y axis
+	  var yAxis = d3.axisLeft(yScale);
       svg.append("g")
         .attr("class", "axis")
         .attr("transform", "translate(" 
            + margin.left 
           + ",0)")
         .call(yAxis);
-
-      }
+		
+	  //Add a title
+	  svg.append("text")
+        .attr("x", (w / 2) + margin.left)             
+        .attr("y", 0 + (margin.top / 1.5))
+        .attr("text-anchor", "middle")  
+		.attr("color", "Blue")
+        .style("font-size", "20px") 
+        .style("text-decoration", "bold")  
+        .text("PCA on NBA Player Career data with GamesPlayed>100");
+		
+	  //Add a X-axis title
+	  svg.append("text")
+        .attr("x", (w / 2) + margin.left)             
+        .attr("y", h + (margin.top) + (margin.bottom/2))
+        .attr("text-anchor", "middle")  
+        .style("font-size", "16px") 
+		.style("color", "blue")
+        .text("Principal component 1");
+	 
+ 	  //Add a Y-axis Title
+	  svg.append("text")
+		.attr("transform", "translate("+ (margin.left/2) +","+((h/2) + margin.top)+")rotate(-90)")
+        .attr("text-anchor", "middle")  
+        .style("font-size", "16px")
+		.style("font-color", "blue")		
+        .text("Principal component 2")
+		.style("color", "#0F3434"); 	
     
+	}
+	
+	//---------------------EXTRA PREVIOUSLY USED CODE PIECES--------------------------------------//
+	
+	
+	  /*
+	  //Create labels
+	  svg.selectAll("text")
+		 .data(dataset)
+		 .enter()
+		 .append("text")
+		 .text(function(d) {
+			return d[0] + "," + d[1];
+		 })
+		 .attr("x", function(d) {
+			return xScale(d[0]);
+		 })
+		 .attr("y", function(d) {
+			return yScale(d[1]);
+		 })
+		 .attr("font-family", "sans-serif")
+		 .attr("font-size", "11px")
+		 .attr("fill", "red");
+		*/ 
+		
+      // printfunc = dataset.forEach(function(d) 
+      //   {
+      //     console.log(
+      //     [ d[0], xScale(d[0]) ]
+      //     )
+      //   })		
+
+	  
+	  //Static dataset
+      // var dataset = [
+      //         [5, 20], [480, 90], [250, 50], [100, 33], [330, 95],
+      //         [410, 12], [475, 44], [25, 67], [85, 21], [220, 88],
+      //         [600, 150]
+      //         ];
+      // //Dynamic, random dataset
+      // var dataset = [];         //Initialize empty array
+      // var numDataPoints = 50;       //Number of dummy data points to create
+      // var xRange = Math.random() * 1000;  //Max range of new x values
+      // var yRange = Math.random() * 1000;  //Max range of new y values
+      // for (var i = 0; i < numDataPoints; i++) {         //Loop numDataPoints times
+      //   var newNumber1 = Math.round(Math.random() * xRange);  //New random integer
+      //   var newNumber2 = Math.round(Math.random() * yRange);  //New random integer
+      //   dataset.push([newNumber1, newNumber2]);         //Add new number to array
+      // }	
 
     </script>
   </body>
-
 </html>
