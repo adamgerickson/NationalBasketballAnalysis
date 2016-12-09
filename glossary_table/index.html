@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html>
+ <head>
+ <script src="sorttable.js"></script>
+ <script type="text/javascript" src="d3.min.js"></script>
+ </head>
+  <body>
+    <p>Hello!</p>
+    <table border="1" class="sortable">
+	  <thead>
+	    <tr style="text-align: right;">
+	      <th></th>
+	      <th>full_var_name</th>
+	      <th>bballref_table</th>
+	      <th>Off_or_Def</th>
+	      <th>FG_Ast_Rbd_Stl_Blk_Tov_Usg_or_Adv</th>
+	      <th>pct_Avg_or_Absolute</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <tr>
+	      <th>season</th>
+	      <td>Season Year</td>
+	      <td>Bio</td>
+	      <td>NaN</td>
+	      <td>NaN</td>
+	      <td>NaN</td>
+	    </tr>
+	    <tr>
+	      <th>lg_id</th>
+	      <td>League ID</td>
+	      <td>Bio</td>
+	      <td>NaN</td>
+	      <td>NaN</td>
+	      <td>NaN</td>
+	    </tr>
+	    <tr>
+	      <th>pos</th>
+	      <td>Position</td>
+	      <td>Bio</td>
+	      <td>NaN</td>
+	      <td>NaN</td>
+	      <td>NaN</td>
+	    </tr>
+	    <tr>
+	      <th>name</th>
+	      <td>name</td>
+	      <td>Bio</td>
+	      <td>NaN</td>
+	      <td>NaN</td>
+	      <td>NaN</td>
+	    </tr>
+	    <tr>
+	      <th>team_id</th>
+	      <td>team_id</td>
+	      <td>Bio</td>
+	      <td>NaN</td>
+	      <td>NaN</td>
+	      <td>NaN</td>
+	    </tr>
+	    <tr>
+	      <th>fga_per_poss</th>
+	      <td>fga_per_poss</td>
+	      <td>Per100Poss</td>
+	      <td>Offense</td>
+	      <td>FG</td>
+	      <td>Avg</td>
+	    </tr>
+	    <tr>
+	      <th>stl_per_poss</th>
+	      <td>stl_per_poss</td>
+	      <td>Per100Poss</td>
+	      <td>Defense</td>
+	      <td>Stl</td>
+	      <td>Avg</td>
+	    </tr>
+	    <tr>
+	      <th>efg_pct</th>
+	      <td>effective FG %percentage</td>
+	      <td>Shooting</td>
+	      <td>Offense</td>
+	      <td>FG</td>
+	      <td>%</td>
+	    </tr>
+	    <tr>
+	      <th>ts_pct</th>
+	      <td>true_shooting_%percentage</td>
+	      <td>Advanced</td>
+	      <td>Offense</td>
+	      <td>FG</td>
+	      <td>%</td>
+	    </tr>
+	    <tr>
+	      <th>mp</th>
+	      <td>minutes played</td>
+	      <td>PerG</td>
+	      <td>NaN</td>
+	      <td>Usg</td>
+	      <td>Avg</td>
+	    </tr>
+	    <tr>
+	      <th>ws_per_48</th>
+	      <td>win_shares_per_48_min</td>
+	      <td>Advanced</td>
+	      <td>NaN</td>
+	      <td>Adv</td>
+	      <td>Avg</td>
+	    </tr>
+	    <tr>
+	      <th>pct_fg2_dunk</th>
+	      <td>%percent of 2pt fg that are dunks</td>
+	      <td>Shooting</td>
+	      <td>Offense</td>
+	      <td>FG</td>
+	      <td>%</td>
+	    </tr>
+	    <tr>
+	      <th>orb_pct</th>
+	      <td>offensive rebound %percentage</td>
+	      <td>Advanced</td>
+	      <td>Offense</td>
+	      <td>Rbd</td>
+	      <td>%</td>
+	    </tr>
+	    <tr>
+	      <th>fg_pct</th>
+	      <td>fg_%percentage</td>
+	      <td>Shooting</td>
+	      <td>Offense</td>
+	      <td>FG</td>
+	      <td>%</td>
+	    </tr>
+	    <tr>
+	      <th>pts_per_poss</th>
+	      <td>Points_per_100_poss</td>
+	      <td>Per100Poss</td>
+	      <td>Offense</td>
+	      <td>FG</td>
+	      <td>Avg</td>
+	    </tr>
+	    <tr>
+	      <th>dws</th>
+	      <td>defensive win shares</td>
+	      <td>Advanced</td>
+	      <td>Defense</td>
+	      <td>Adv</td>
+	      <td>Avg</td>
+	    </tr>
+	    <tr>
+	      <th>fg3a_pct_fga</th>
+	      <td>%percent of fga that are 3-pointer</td>
+	      <td>Shooting</td>
+	      <td>Offense</td>
+	      <td>FG</td>
+	      <td>%</td>
+	    </tr>
+	    <tr>
+	      <th>def_rtg</th>
+	      <td>defensive rating: estimate points allowed per ...</td>
+	      <td>Per100Poss</td>
+	      <td>Defense</td>
+	      <td>Adv</td>
+	      <td>TBD</td>
+	    </tr>
+	    <tr>
+	      <th>fg3_heave</th>
+	      <td>3-FG heaves made</td>
+	      <td>Shooting</td>
+	      <td>Offense</td>
+	      <td>FG</td>
+	      <td>Abs</td>
+	    </tr>
+	    <tr>
+	      <th>fg2_pct_ast</th>
+	      <td>%percentage of 2-FG that are assisted</td>
+	      <td>Shooting</td>
+	      <td>Offense</td>
+	      <td>FG</td>
+	      <td>%</td>
+	    </tr>
+	    <tr>
+	      <th>fg3_pct_ast</th>
+	      <td>%percentage of 3-FG that are assisted</td>
+	      <td>Shooting</td>
+	      <td>Offense</td>
+	      <td>FG</td>
+	      <td>%</td>
+	    </tr>
+	    <tr>
+	      <th>fg2_pct</th>
+	      <td>2-FG %percentage</td>
+	      <td>Shooting</td>
+	      <td>Offense</td>
+	      <td>FG</td>
+	      <td>%</td>
+	    </tr>
+	    <tr>
+	      <th>fg3a_heave</th>
+	      <td>3-FG attempts that are heaves</td>
+	      <td>Shooting</td>
+	      <td>Offense</td>
+	      <td>FG</td>
+	      <td>Abs</td>
+	    </tr>
+	    <tr>
+	      <th>fg2_dunk</th>
+	      <td>Number of Succesful Dunks</td>
+	      <td>Shooting</td>
+	      <td>Offense</td>
+	      <td>FG</td>
+	      <td>Abs</td>
+	    </tr>
+	    <tr>
+	      <th>ws</th>
+	      <td>win shares</td>
+	      <td>Advanced</td>
+	      <td>NaN</td>
+	      <td>Adv</td>
+	      <td>Abs</td>
+	    </tr>
+	    <tr>
+	      <th>ft_pct</th>
+	      <td>free throw %percentage</td>
+	      <td>Shooting</td>
+	      <td>Offense</td>
+	      <td>FG</td>
+	      <td>%</td>
+	    </tr>
+	    <tr>
+	      <th>trb_pct</th>
+	      <td>Total rebounds_%percentage</td>
+	      <td>Per100Poss</td>
+	      <td>NaN</td>
+	      <td>Rbd</td>
+	      <td>%</td>
+	    </tr>
+	    <tr>
+	      <th>pct_fga_10_16</th>
+	      <td>%percentage of fga taken between 10 and 16 feet</td>
+	      <td>Shooting</td>
+	      <td>Offense</td>
+	      <td>FG</td>
+	      <td>%</td>
+	    </tr>
+	    <tr>
+	      <th>dbpm</th>
+	      <td>defensive Box Plus/Minus</td>
+	      <td>Advanced</td>
+	      <td>Defense</td>
+	      <td>Adv</td>
+	      <td>TBD</td>
+	    </tr>
+	    <tr>
+	      <th>avg_dist</th>
+	      <td>Average distance of shot</td>
+	      <td>Shooting</td>
+	      <td>Offense</td>
+	      <td>FG</td>
+	      <td>Avg</td>
+	    </tr>
+	    <tr>
+	      <th>ast_pct</th>
+	      <td>assist %percentage</td>
+	      <td>Advanced</td>
+	      <td>Offense</td>
+	      <td>Ast</td>
+	      <td>%</td>
+	    </tr>
+	    <tr>
+	      <th>drb_per_poss</th>
+	      <td>Defensive Rebounds_per_poss</td>
+	      <td>Per100Poss</td>
+	      <td>Defense</td>
+	      <td>Rbd</td>
+	      <td>Avg</td>
+	    </tr>
+	    <tr>
+	      <th>fg2a_per_poss</th>
+	      <td>2-FG attempts per possesion</td>
+	      <td>Per100Poss</td>
+	      <td>Offense</td>
+	      <td>FG</td>
+	      <td>Avg</td>
+	    </tr>
+	    <tr>
+	      <th>fg_pct_10_16</th>
+	      <td>FG %percentage on shots between 10 and 16 feet</td>
+	      <td>Shooting</td>
+	      <td>Offense</td>
+	      <td>FG</td>
+	      <td>%</td>
+	    </tr>
+	    <tr>
+	      <th>trb_per_g</th>
+	      <td>Total rebounds Per Game</td>
+	      <td>PerGame</td>
+	      <td>Offense</td>
+	      <td>Rbd</td>
+	      <td>Avg</td>
+	    </tr>
+	    <tr>
+	      <th>mp_per_g</th>
+	      <td>minutes played Per Game</td>
+	      <td>PerGame</td>
+	      <td>NaN</td>
+	      <td>Usg</td>
+	      <td>Avg</td>
+	    </tr>
+	    <tr>
+	      <th>tov_per_poss</th>
+	      <td>Turnover_per_poss</td>
+	      <td>Per100Poss</td>
+	      <td>Offense</td>
+	      <td>Tov</td>
+	      <td>Avg</td>
+	    </tr>
+	    <tr>
+	      <th>drb_pct</th>
+	      <td>defensive rebound %percentage</td>
+	      <td>Advanced</td>
+	      <td>Defense</td>
+	      <td>Rbd</td>
+	      <td>%</td>
+	    </tr>
+	    <tr>
+	      <th>orb_per_poss</th>
+	      <td>offensive rebound per possession</td>
+	      <td>Per100Poss</td>
+	      <td>Offense</td>
+	      <td>Rbd</td>
+	      <td>Avg</td>
+	    </tr>
+	    <tr>
+	      <th>vorp</th>
+	      <td>Value over replacement player</td>
+	      <td>Advanced</td>
+	      <td>NaN</td>
+	      <td>Adv</td>
+	      <td>TBD</td>
+	    </tr>
+	    <tr>
+	      <th>trb_per_poss</th>
+	      <td>Total rebounds_per_poss</td>
+	      <td>Per100Poss</td>
+	      <td>NaN</td>
+	      <td>Rbd</td>
+	      <td>Avg</td>
+	    </tr>
+	    <tr>
+	      <th>age</th>
+	      <td>Age</td>
+	      <td>Bio</td>
+	      <td>NaN</td>
+	      <td>NaN</td>
+	      <td>NaN</td>
+	    </tr>
+	    <tr>
+	      <th>ast_per_g</th>
+	      <td>Assists Per Game</td>
+	      <td>PerGame</td>
+	      <td>Offense</td>
+	      <td>Ast</td>
+	      <td>Avg</td>
+	    </tr>
+	    <tr>
+	      <th>fg3_per_poss</th>
+	      <td>3-FG per possession</td>
+	      <td>Per100Poss</td>
+	      <td>Offense</td>
+	      <td>FG</td>
+	      <td>Avg</td>
+	    </tr>
+	    <tr>
+	      <th>fg_per_g</th>
+	      <td>FG per game</td>
+	      <td>PerGame</td>
+	      <td>Offense</td>
+	      <td>FG</td>
+	      <td>Avg</td>
+	    </tr>
+	    <tr>
+	      <th>fg_pct_00_03</th>
+	      <td>FG %percentage on shots between 00 and 03 feet</td>
+	      <td>Shooting</td>
+	      <td>Offense</td>
+	      <td>FG</td>
+	      <td>%</td>
+	    </tr>
+	    <tr>
+	      <th>fg3_pct</th>
+	      <td>3-FG %percentage</td>
+	      <td>Shooting</td>
+	      <td>Offense</td>
+	      <td>FG</td>
+	      <td>%</td>
+	    </tr>
+	    <tr>
+	      <th>ft_per_poss</th>
+	      <td>Free Throw per possession</td>
+	      <td>Per100Poss</td>
+	      <td>Offense</td>
+	      <td>FG</td>
+	      <td>Avg</td>
+	    </tr>
+	    <tr>
+	      <th>tov_per_g</th>
+	      <td>Turnover Per Game</td>
+	      <td>PerGame</td>
+	      <td>Offense</td>
+	      <td>Tov</td>
+	      <td>Avg</td>
+	    </tr>
+	    <tr>
+	      <th>blk_per_poss</th>
+	      <td>block _per_poss</td>
+	      <td>Per100Poss</td>
+	      <td>Defense</td>
+	      <td>Blk</td>
+	      <td>Avg</td>
+	    </tr>
+	    <tr>
+	      <th>ft_per_g</th>
+	      <td>Free Throw Per Game</td>
+	      <td>PerGame</td>
+	      <td>Offense</td>
+	      <td>FG</td>
+	      <td>Avg</td>
+	    </tr>
+	    <tr>
+	      <th>usg_pct</th>
+	      <td>Usage %percentage</td>
+	      <td>Advanced</td>
+	      <td>NaN</td>
+	      <td>Usg</td>
+	      <td>%</td>
+	    </tr>
+	    <tr>
+	      <th>fg_pct_16_xx</th>
+	      <td>FG %percentage 16 feet and greater</td>
+	      <td>Shooting</td>
+	      <td>Offense</td>
+	      <td>FG</td>
+	      <td>%</td>
+	    </tr>
+	    <tr>
+	      <th>pf_per_g</th>
+	      <td>Fouls (personal) Per Game</td>
+	      <td>PerGame</td>
+	      <td>NaN</td>
+	      <td>NaN</td>
+	      <td>Avg</td>
+	    </tr>
+	    <tr>
+	      <th>pct_fga_03_10</th>
+	      <td>%percentage of FGA between 03 and 10 feet</td>
+	      <td>Shooting</td>
+	      <td>Offense</td>
+	      <td>FG</td>
+	      <td>%</td>
+	    </tr>
+	    <tr>
+	      <th>fg3a_per_g</th>
+	      <td>fg3a Per Game</td>
+	      <td>PerGame</td>
+	      <td>Offense</td>
+	      <td>FG</td>
+	      <td>Avg</td>
+	    </tr>
+	    <tr>
+	      <th>off_rtg</th>
+	      <td>Offensive rating</td>
+	      <td>Per100Poss</td>
+	      <td>Offense</td>
+	      <td>Adv</td>
+	      <td>TBD</td>
+	    </tr>
+	    <tr>
+	      <th>obpm</th>
+	      <td>offensive Box Plus/Minus</td>
+	      <td>Advanced</td>
+	      <td>Offense</td>
+	      <td>Adv</td>
+	      <td>TBD</td>
+	    </tr>
+	    <tr>
+	      <th>blk_pct</th>
+	      <td>Block %percentage</td>
+	      <td>Advanced</td>
+	      <td>Defense</td>
+	      <td>Blk</td>
+	      <td>%</td>
+	    </tr>
+	    <tr>
+	      <th>fta_per_poss</th>
+	      <td>Free throw attempt per possesion</td>
+	      <td>Per100Poss</td>
+	      <td>Offense</td>
+	      <td>FG</td>
+	      <td>Avg</td>
+	    </tr>
+	    <tr>
+	      <th>fg_per_poss</th>
+	      <td>FG per possession</td>
+	      <td>Per100Poss</td>
+	      <td>Offense</td>
+	      <td>FG</td>
+	      <td>Avg</td>
+	    </tr>
+	    <tr>
+	      <th>fta_per_g</th>
+	      <td>Free throw attempt per game</td>
+	      <td>PerGame</td>
+	      <td>Offense</td>
+	      <td>FG</td>
+	      <td>Avg</td>
+	    </tr>
+	    <tr>
+	      <th>fg2_per_g</th>
+	      <td>2-FG Per Game</td>
+	      <td>PerGame</td>
+	      <td>Offense</td>
+	      <td>FG</td>
+	      <td>Avg</td>
+	    </tr>
+	    <tr>
+	      <th>tov_pct</th>
+	      <td>Turnover_%percentage</td>
+	      <td>Advanced</td>
+	      <td>Offense</td>
+	      <td>Tov</td>
+	      <td>%</td>
+	    </tr>
+	    <tr>
+	      <th>fg2a_pct_fga</th>
+	      <td>2-FGA as %percentage of FGA</td>
+	      <td>Shooting</td>
+	      <td>Offense</td>
+	      <td>FG</td>
+	      <td>%</td>
+	    </tr>
+	    <tr>
+	      <th>ast_per_poss</th>
+	      <td>Assists_per_poss</td>
+	      <td>Per100Poss</td>
+	      <td>Offense</td>
+	      <td>Ast</td>
+	      <td>Avg</td>
+	    </tr>
+	    <tr>
+	      <th>bpm</th>
+	      <td>Box Plus/Minus</td>
+	      <td>Advanced</td>
+	      <td>NaN</td>
+	      <td>Adv</td>
+	      <td>TBD</td>
+	    </tr>
+	    <tr>
+	      <th>pct_fg3a_corner</th>
+	      <td>%percentage_fg3a_corner</td>
+	      <td>Shooting</td>
+	      <td>Offense</td>
+	      <td>FG</td>
+	      <td>%</td>
+	    </tr>
+	    <tr>
+	      <th>fg3a_per_poss</th>
+	      <td>3-FGA _per_poss</td>
+	      <td>Per100Poss</td>
+	      <td>Offense</td>
+	      <td>FG</td>
+	      <td>Avg</td>
+	    </tr>
+	    <tr>
+	      <th>blk_per_g</th>
+	      <td>block Per Game</td>
+	      <td>PerGame</td>
+	      <td>Defense</td>
+	      <td>Blk</td>
+	      <td>Avg</td>
+	    </tr>
+	    <tr>
+	      <th>orb_per_g</th>
+	      <td>Offensive Rebounds Per Game</td>
+	      <td>PerGame</td>
+	      <td>Offense</td>
+	      <td>Rbd</td>
+	      <td>Avg</td>
+	    </tr>
+	    <tr>
+	      <th>pts_per_g</th>
+	      <td>Points Per Game</td>
+	      <td>PerGame</td>
+	      <td>Offense</td>
+	      <td>FG</td>
+	      <td>Avg</td>
+	    </tr>
+	    <tr>
+	      <th>fg3_per_g</th>
+	      <td>3-FG Per Game</td>
+	      <td>PerGame</td>
+	      <td>Offense</td>
+	      <td>FG</td>
+	      <td>Avg</td>
+	    </tr>
+	    <tr>
+	      <th>drb_per_g</th>
+	      <td>Defensive Rebounds Per Game</td>
+	      <td>PerGame</td>
+	      <td>Defense</td>
+	      <td>Rbd</td>
+	      <td>Avg</td>
+	    </tr>
+	    <tr>
+	      <th>pf_per_poss</th>
+	      <td>Fouls (personal) _per_poss</td>
+	      <td>Per100Poss</td>
+	      <td>NaN</td>
+	      <td>NaN</td>
+	      <td>Avg</td>
+	    </tr>
+	    <tr>
+	      <th>fg2a_per_g</th>
+	      <td>2-FGA Per Game</td>
+	      <td>PerGame</td>
+	      <td>Offense</td>
+	      <td>FG</td>
+	      <td>Avg</td>
+	    </tr>
+	    <tr>
+	      <th>fg3a_per_fga_pct</th>
+	      <td>3-FGA per FGA as a %percentage</td>
+	      <td>Shooting</td>
+	      <td>Offense</td>
+	      <td>FG</td>
+	      <td>%</td>
+	    </tr>
+	    <tr>
+	      <th>per</th>
+	      <td>P.E.R. player efficiency rating</td>
+	      <td>Advanced</td>
+	      <td>NaN</td>
+	      <td>Usg</td>
+	      <td>TBD</td>
+	    </tr>
+	    <tr>
+	      <th>stl_pct</th>
+	      <td>stl_%percentage</td>
+	      <td>Advanced</td>
+	      <td>Defense</td>
+	      <td>Stl</td>
+	      <td>%</td>
+	    </tr>
+	    <tr>
+	      <th>fg_pct_03_10</th>
+	      <td>fg_%percentage_03_10</td>
+	      <td>Shooting</td>
+	      <td>Offense</td>
+	      <td>FG</td>
+	      <td>%</td>
+	    </tr>
+	    <tr>
+	      <th>pct_fga_00_03</th>
+	      <td>%percentage_fga_00_03</td>
+	      <td>Shooting</td>
+	      <td>Offense</td>
+	      <td>FG</td>
+	      <td>%</td>
+	    </tr>
+	    <tr>
+	      <th>ows</th>
+	      <td>offensive win shares</td>
+	      <td>Advanced</td>
+	      <td>Offense</td>
+	      <td>Adv</td>
+	      <td>TBD</td>
+	    </tr>
+	    <tr>
+	      <th>fga_per_g</th>
+	      <td>FGA per game</td>
+	      <td>PerGame</td>
+	      <td>Offense</td>
+	      <td>FG</td>
+	      <td>Avg</td>
+	    </tr>
+	    <tr>
+	      <th>gs</th>
+	      <td>Games Started</td>
+	      <td>Total</td>
+	      <td>NaN</td>
+	      <td>NaN</td>
+	      <td>Abs</td>
+	    </tr>
+	    <tr>
+	      <th>fta_per_fga_pct</th>
+	      <td>Free Throw attempt per field goal attempt %per...</td>
+	      <td>Shooting</td>
+	      <td>Offense</td>
+	      <td>FG</td>
+	      <td>%</td>
+	    </tr>
+	    <tr>
+	      <th>fg2_per_poss</th>
+	      <td>2-FG per possession</td>
+	      <td>Per100Poss</td>
+	      <td>Offense</td>
+	      <td>FG</td>
+	      <td>Avg</td>
+	    </tr>
+	    <tr>
+	      <th>stl_per_g</th>
+	      <td>Steals per game</td>
+	      <td>PerGame</td>
+	      <td>Defense</td>
+	      <td>Stl</td>
+	      <td>Avg</td>
+	    </tr>
+	    <tr>
+	      <th>pct_fga_16_xx</th>
+	      <td>%percentage of FGA 16 feet and greater</td>
+	      <td>Shooting</td>
+	      <td>Offense</td>
+	      <td>FG</td>
+	      <td>%</td>
+	    </tr>
+	    <tr>
+	      <th>g</th>
+	      <td>Games</td>
+	      <td>Total</td>
+	      <td>NaN</td>
+	      <td>NaN</td>
+	      <td>Abs</td>
+	    </tr>
+	    <tr>
+	      <th>fg3_pct_corner</th>
+	      <td>3-FG %percentage from the corner</td>
+	      <td>Shooting</td>
+	      <td>Offense</td>
+	      <td>FG</td>
+	      <td>%</td>
+	    </tr>
+	  </tbody>
+	</table>
+  </body>
+</html>
