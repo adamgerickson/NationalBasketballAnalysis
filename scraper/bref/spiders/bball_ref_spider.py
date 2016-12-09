@@ -6,8 +6,10 @@ import re
 
 class BBallRefSpider(scrapy.Spider):
     name = "bbref"
+
+    # set the year
     start_urls = [
-        'http://www.basketball-reference.com/leagues/NBA_2017.html'
+        'http://www.basketball-reference.com/leagues/NBA_2015.html'
     ]
 
     def parse(self, response):
@@ -56,9 +58,12 @@ class BBallRefSpider(scrapy.Spider):
             career_shooting = resp.css('#div_shooting table tfoot tr')[0]
             shooting_seasons.append(career_shooting)
 
+
             seasons = zip(per_game_seasons, per_poss_seasons, adv_seasons, shooting_seasons)
 
-            for per_game_season, per_poss_season, adv_season, shooting_season in seasons:
+
+
+            for per_game_season, per_poss_season, adv_season, shooting_season in seasons[-1]: # test if seasons[-1] gives me the current year I am in
                 item = {}
                 item['name'] = name
                 cols = []
