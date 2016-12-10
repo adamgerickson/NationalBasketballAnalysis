@@ -15,34 +15,27 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
 from sklearn.naive_bayes import GaussianNB
 from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis
+# from sklearn.metrics import recall_score
+import itertools
 
 import sys
 
 # get all data
 df = pd.read_csv('test_strippeddown.csv')
 
-# test = df[1:10]
-# df.drop(df.index[1:10], inplace=True)
-
-# print(test)
-# print(df)
-
 # fill in missing data
 df = df.fillna(0)
 
 
 # remove test data
-test = df[:30]
-df.drop(df.index[:30], inplace=True)
+# test = df[20:30]
+# df.drop(df.index[20:30], inplace=True)
 
-# get training data
-# training = df['']
-
-# split test data
-test_labels = test[['allstar']]
-test_names = test[['name']]
-del test['allstar']
-del test['name']
+# # split test data
+# test_labels = test[['allstar']]
+# test_names = test[['name']]
+# del test['allstar']
+# del test['name']
 
 
 labels = df[['allstar']]
@@ -54,127 +47,128 @@ del df['name']
 # change shape of labels to (n_samples, ).
 labels = np.ravel(labels)
 
-classifier = RandomForestClassifier(n_estimators=1000)
+classifier = RandomForestClassifier()
 
-
-# try out model selection
+# # try out model selection
 parameters = {'n_estimators' : (5, 10, 50, 100, 1000)}
-model = GridSearchCV(classifier, parameters)
+model = GridSearchCV(classifier, parameters, scoring='f1_micro')
 model.fit(df, labels)
 
-# print(test_labels)
-predicted = model.predict_proba(test)
-correct = 0
-total = 0
+# # print(test_labels)
+# predicted = model.predict_proba(test)
 
-for prediction, real, name in zip(predicted, test_labels['allstar'], test_names['name']):
-    print(name, real, prediction)
+# predicted_0_true = 0
+# predicted_0_false = 0
+# predicted_1_true = 0
+# predicted_1_false = 0
+# correct = 0
+# total = 0
 
-print(model.best_estimator_)
+# # threshold probability value for being put in the allstar class (if prob > threshold, assign as allstar)
+# threshold = 0.3
 
-sys.exit()
+# for prediction, real, name in zip(predicted, test_labels['allstar'], test_names['name']):
+#     print(name, real, prediction)
+#     total += 1
 
-predicted = model.predict_proba(test)
-correct = 0
-total = 0
-for prediction, real in zip(predicted, test_labels):
-    total += 1
-    if prediction == real:
-        correct += 1
+#     prediction = (1 if prediction[1] >= threshold else -1)
+#     print(prediction)
 
-
-
-print('percent correct: {}'.format(correct / float(total)))
-
-
-
-# names = ["Nearest Neighbors", "Linear SVM", "RBF SVM", "Gaussian Process",
-#          "Decision Tree", "Random Forest", "Neural Net", "AdaBoost",
-#          "Naive Bayes", "QDA"]
-
-# classifiers = [
-#     KNeighborsClassifier(3),
-#     SVC(kernel="linear", C=0.025),
-#     SVC(gamma=2, C=1),
-#     GaussianProcessClassifier(1.0 * RBF(1.0), warm_start=True),
-#     DecisionTreeClassifier(max_depth=5),
-#     RandomForestClassifier(max_depth=5, n_estimators=10, max_features=1),
-#     MLPClassifier(alpha=1),
-#     AdaBoostClassifier(),
-#     GaussianNB(),
-#     QuadraticDiscriminantAnalysis()]
-
-# X, y = make_classification(n_features=2, n_redundant=0, n_informative=2,
-#                            random_state=1, n_clusters_per_class=1)
-# rng = np.random.RandomState(2)
-# X += 2 * rng.uniform(size=X.shape)
-# linearly_separable = (X, y)
-
-# datasets = [data]
-
-# figure = plt.figure(figsize=(27, 9))
-# i = 1
-# # iterate over datasets
-# for ds_cnt, ds in enumerate(datasets):
-#     # preprocess dataset, split into training and test part
-#     X, y = ds
-#     X = StandardScaler().fit_transform(X)
-#     X_train, X_test, y_train, y_test = \
-#         train_test_split(X, y, test_size=.4, random_state=42)
-
-#     x_min, x_max = X[:, 0].min() - .5, X[:, 0].max() + .5
-#     y_min, y_max = X[:, 1].min() - .5, X[:, 1].max() + .5
-#     xx, yy = np.meshgrid(np.arange(x_min, x_max, h),
-#                          np.arange(y_min, y_max, h))
-
-#     # just plot the dataset first
-#     cm = plt.cm.RdBu
-#     cm_bright = ListedColormap(['#FF0000', '#0000FF'])
-#     ax = plt.subplot(len(datasets), len(classifiers) + 1, i)
-#     if ds_cnt == 0:
-#         ax.set_title("Input data")
-#     # Plot the training points
-#     ax.scatter(X_train[:, 0], X_train[:, 1], c=y_train, cmap=cm_bright)
-#     # and testing points
-#     ax.scatter(X_test[:, 0], X_test[:, 1], c=y_test, cmap=cm_bright, alpha=0.6)
-#     ax.set_xlim(xx.min(), xx.max())
-#     ax.set_ylim(yy.min(), yy.max())
-#     ax.set_xticks(())
-#     ax.set_yticks(())
-#     i += 1
-
-#     # iterate over classifiers
-#     for name, clf in zip(names, classifiers):
-#         ax = plt.subplot(len(datasets), len(classifiers) + 1, i)
-#         clf.fit(X_train, y_train)
-#         score = clf.score(X_test, y_test)
-
-#         # Plot the decision boundary. For that, we will assign a color to each
-#         # point in the mesh [x_min, x_max]x[y_min, y_max].
-#         if hasattr(clf, "decision_function"):
-#             Z = clf.decision_function(np.c_[xx.ravel(), yy.ravel()])
+#     if prediction == real:
+#         correct += 1
+#         if prediction == -1:
+#             predicted_0_true += 1
 #         else:
-#             Z = clf.predict_proba(np.c_[xx.ravel(), yy.ravel()])[:, 1]
+#             predicted_1_true += 1
+#     else:
+#         if prediction == -1:
+#             predicted_0_false += 1
+#         else:
+#             predicted_1_false += 1
 
-#         # Put the result into a color plot
-#         Z = Z.reshape(xx.shape)
-#         ax.contourf(xx, yy, Z, cmap=cm, alpha=.8)
 
-#         # Plot also the training points
-#         ax.scatter(X_train[:, 0], X_train[:, 1], c=y_train, cmap=cm_bright)
-#         # and testing points
-#         ax.scatter(X_test[:, 0], X_test[:, 1], c=y_test, cmap=cm_bright,
-#                    alpha=0.6)
 
-#         ax.set_xlim(xx.min(), xx.max())
-#         ax.set_ylim(yy.min(), yy.max())
-#         ax.set_xticks(())
-#         ax.set_yticks(())
-#         if ds_cnt == 0:
-#             ax.set_title(name)
-#         ax.text(xx.max() - .3, yy.min() + .3, ('%.2f' % score).lstrip('0'),
-#                 size=15, horizontalalignment='right')
-#         i += 1
 
-# plt.tight_layout()
-# plt.show()
+# print('percent correct: {}'.format(correct / float(total)))
+# print('predicted 0: True {} False {}\npredicted 1: True {} False {}'.format(predicted_0_true, predicted_0_false, predicted_1_true, predicted_1_false))
+
+# print(model.best_estimator_)
+
+################################################################################################################################
+from sklearn.tree import DecisionTreeClassifier, export_graphviz
+from scipy.io import loadmat as load
+from numpy import argsort, reshape, transpose, array, zeros,delete
+from matplotlib.pyplot import imshow, xlabel, ylabel, title, figure, savefig
+from numpy.random import permutation, seed
+from pydotplus import graph_from_dot_data
+from sklearn.externals.six import StringIO
+
+x = df
+c = labels
+
+correct = 0
+w = h = 2
+
+k = 10
+correct = 0
+conf = [[0 for x_ in range(w)] for y_ in range(h)]
+seed(3)
+x_ = permutation(x[:])
+seed(3)
+Y = permutation(c[:])
+
+split_size = len(Y) * 1.0 / k
+folds = [i for i in range(k) for _ in range(int(split_size))]
+num_bigger_sets = len(Y) - len(folds)
+if num_bigger_sets != 0:
+    first = [i for i in range(k - num_bigger_sets) for _ in range(int(split_size))]
+    second = [i + (k - num_bigger_sets) for i in range(num_bigger_sets) for _ in range(int(split_size + 1))] 
+    folds = first + second
+
+
+
+for j in range(k):
+    X_train = [row for row, f in zip(x_,folds) if f != j]
+    Y_train = [val for val, f in zip(Y,folds) if f != j]
+
+    X_test = [row for row, f in zip(x_,folds) if f == j]
+    Y_test = [val for val, f in zip(Y,folds) if f == j]
+
+    M = RandomForestClassifier(n_estimators=model.best_params_['n_estimators'])
+    M = M.fit(X_train, Y_train)
+
+    predicted = M.predict(X_test) 
+    for i in range(len(predicted)):
+        if predicted[i] == Y_test[i]:
+            correct += 1
+        conf[(0 if Y_test[i] == -1 else 1)][(0 if predicted[i] == -1 else 1)] += 1
+
+print conf
+print k, "fold accuracy:", correct * 1.0 / len(c)
+
+num_classes = 2
+classes = range(num_classes)
+class_names = ["Normal", "All-star"]
+title = str(k) + "-fold Confusion Matrix"
+
+# normalize the conf matrix
+col1total = float(conf[0][0] + conf[1][0])
+col2total = float(conf[0][1] + conf[1][1])
+print('coltotals:', col1total, col2total)
+conf_normalized = [[conf[0][0] / col1total, conf[0][1] / col2total], [conf[1][0] / col1total, conf[1][1] / col2total]]
+thresh = max([max(conf[0]), max(conf[1])]) / 2
+imshow(conf_normalized,interpolation='nearest', cmap=plt.cm.Greens)
+for i, j in itertools.product(classes, classes):
+        plt.text(j, i, conf[i][j],
+                 horizontalalignment="center",
+                 color="white" if conf[i][j] > thresh else "black")
+
+tick_marks = np.arange(num_classes)
+plt.xticks(tick_marks, class_names, rotation=0)
+plt.yticks(tick_marks, class_names)
+plt.tight_layout()
+plt.ylabel('True label')
+plt.xlabel('Predicted label')
+plt.title(title)
+savefig(title)
+plt.show()
