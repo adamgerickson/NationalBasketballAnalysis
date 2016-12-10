@@ -3,6 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.colors import ListedColormap
 from sklearn.model_selection import train_test_split
+from sklearn.model_selection import GridSearchCV
 from sklearn.preprocessing import StandardScaler
 from sklearn.datasets import make_moons, make_circles, make_classification
 from sklearn.neural_network import MLPClassifier
@@ -18,7 +19,7 @@ from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis
 import sys
 
 # get all data
-df = pd.read_csv('past_years_data_numerical.csv')
+df = pd.read_csv('test_strippeddown.csv')
 
 # test = df[1:10]
 # df.drop(df.index[1:10], inplace=True)
@@ -29,9 +30,13 @@ df = pd.read_csv('past_years_data_numerical.csv')
 # fill in missing data
 df = df.fillna(0)
 
+
 # remove test data
-test = df[15:30]
-df.drop(df.index[15:30], inplace=True)
+test = df[:30]
+df.drop(df.index[:30], inplace=True)
+
+# get training data
+# training = df['']
 
 # split test data
 test_labels = test[['allstar']]
@@ -49,16 +54,35 @@ del df['name']
 # change shape of labels to (n_samples, ).
 labels = np.ravel(labels)
 
-model = KNeighborsClassifier(3)
+classifier = RandomForestClassifier(n_estimators=1000)
+
+
+# try out model selection
+parameters = {'n_estimators' : (5, 10, 50, 100, 1000)}
+model = GridSearchCV(classifier, parameters)
 model.fit(df, labels)
 
-predicted = model.predict(test)
+# print(test_labels)
+predicted = model.predict_proba(test)
+correct = 0
+total = 0
+
+for prediction, real, name in zip(predicted, test_labels['allstar'], test_names['name']):
+    print(name, real, prediction)
+
+print(model.best_estimator_)
+
+sys.exit()
+
+predicted = model.predict_proba(test)
 correct = 0
 total = 0
 for prediction, real in zip(predicted, test_labels):
     total += 1
     if prediction == real:
         correct += 1
+
+
 
 print('percent correct: {}'.format(correct / float(total)))
 
