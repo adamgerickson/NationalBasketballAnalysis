@@ -47,14 +47,16 @@ del df['name']
 # change shape of labels to (n_samples, ).
 labels = np.ravel(labels)
 
-classifier = RandomForestClassifier()
+classifier = SVC(kernel='rbf',gamma=0.5)
+classifier.fit(df, labels)
+
 
 # # try out model selection
-parameters = {'n_estimators' : (5, 10, 50, 100, 1000)}
+parameters = {} #{'kernel' : ('linear')} # {'criterion' : ('gini', 'entropy'), 'splitter' : ('best', 'random')}
 model = GridSearchCV(classifier, parameters, scoring='f1_micro')
 model.fit(df, labels)
 
-# # print(test_labels)
+# print(test_labels)
 # predicted = model.predict_proba(test)
 
 # predicted_0_true = 0
@@ -95,6 +97,7 @@ model.fit(df, labels)
 # print(model.best_estimator_)
 
 ################################################################################################################################
+
 from sklearn.tree import DecisionTreeClassifier, export_graphviz
 from scipy.io import loadmat as load
 from numpy import argsort, reshape, transpose, array, zeros,delete
@@ -134,7 +137,8 @@ for j in range(k):
     X_test = [row for row, f in zip(x_,folds) if f == j]
     Y_test = [val for val, f in zip(Y,folds) if f == j]
 
-    M = RandomForestClassifier(n_estimators=model.best_params_['n_estimators'])
+    M = SVC(kernel='rbf', gamma=0.5)
+    # M = RandomForestClassifier()
     M = M.fit(X_train, Y_train)
 
     predicted = M.predict(X_test) 
@@ -146,16 +150,24 @@ for j in range(k):
 print conf
 print k, "fold accuracy:", correct * 1.0 / len(c)
 
+col1total = float(conf[0][0] + conf[1][0])
+col2total = float(conf[0][1] + conf[1][1])
+
+if col2total > 0:
+    print('num correct that were predicted allstars: {} / {} = {}'.format(conf[1][1], col2total, conf[1][1] / col2total))
+print(model.best_params_)
+
+
 num_classes = 2
 classes = range(num_classes)
 class_names = ["Normal", "All-star"]
-title = str(k) + "-fold Confusion Matrix"
+title = str(k) + "-fold Confusion Matrix - SVC rbf kernel"
 
 # normalize the conf matrix
-col1total = float(conf[0][0] + conf[1][0])
-col2total = float(conf[0][1] + conf[1][1])
-print('coltotals:', col1total, col2total)
-conf_normalized = [[conf[0][0] / col1total, conf[0][1] / col2total], [conf[1][0] / col1total, conf[1][1] / col2total]]
+if col2total > 0:
+    conf_normalized = [[conf[0][0] / col1total, conf[0][1] / col2total], [conf[1][0] / col1total, conf[1][1] / col2total]]
+else:
+    conf_normalized = conf
 thresh = max([max(conf[0]), max(conf[1])]) / 2
 imshow(conf_normalized,interpolation='nearest', cmap=plt.cm.Greens)
 for i, j in itertools.product(classes, classes):
