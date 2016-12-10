@@ -1,7 +1,6 @@
 # Generate a class field for a given dataset
 
 import numpy as np 
-import csv
 import pandas as pd 
 from sklearn import svm
 from sklearn.manifold import mds
@@ -173,7 +172,7 @@ allstars = {
 }
 
 # get pandas dataframe from csv
-data = pd.read_csv('data_filtered.csv')
+df = pd.read_csv('data_filtered.csv')
 
 # change based on what your class is based on
 def genclass(name, year):
@@ -194,13 +193,13 @@ def genclass(name, year):
         return(-1)
 
 # create new boolean field 'class': 1 if true, -1 if not
-data['allstar'] = pd.Series([0] * len(data['name']), index=data.index)
-# print(data['name'][0])
+df['allstar'] = pd.Series([0] * len(df['name']), index=df.index)
+# print(df['name'][0])
 
-for index, row in data.iterrows():
-    data['allstar'][index] = genclass(data['name'][index], data['year'][index])
+for index, row in df.iterrows():
+    df['allstar'][index] = genclass(df['name'][index], df['year'][index])
 
-data.to_csv('data_with_allstars')
+df.to_csv('data_with_allstars')
 
 
 
