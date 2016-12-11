@@ -3,6 +3,7 @@
 import pandas as pd
 import numpy as np
 from data.load import df1 as df
+from data.load import df1pos
 
 #Get the Data and the Labels (random, here)
 
@@ -48,6 +49,7 @@ def plot_embedding(X, title=None):
         text = names,
         mode = 'markers',
         marker = dict(
+            color = df1pos,
             line = dict(width = 1)
             #size='16',
             #color = np.random.randn(500), #set color equal to a variable

@@ -9,7 +9,23 @@ class BBallRefSpider(scrapy.Spider):
 
     # set the year
     start_urls = [
-        'http://www.basketball-reference.com/leagues/NBA_2015.html'
+        'http://www.basketball-reference.com/leagues/NBA_2015.html',
+        'http://www.basketball-reference.com/leagues/NBA_2014.html',
+        'http://www.basketball-reference.com/leagues/NBA_2013.html',
+        'http://www.basketball-reference.com/leagues/NBA_2012.html',
+        'http://www.basketball-reference.com/leagues/NBA_2011.html',
+        'http://www.basketball-reference.com/leagues/NBA_2010.html',
+        'http://www.basketball-reference.com/leagues/NBA_2009.html',
+        'http://www.basketball-reference.com/leagues/NBA_2008.html',
+        'http://www.basketball-reference.com/leagues/NBA_2007.html',
+        'http://www.basketball-reference.com/leagues/NBA_2006.html',
+        'http://www.basketball-reference.com/leagues/NBA_2005.html',
+        'http://www.basketball-reference.com/leagues/NBA_2004.html',
+        'http://www.basketball-reference.com/leagues/NBA_2003.html',
+        'http://www.basketball-reference.com/leagues/NBA_2002.html',
+        'http://www.basketball-reference.com/leagues/NBA_2001.html',
+        'http://www.basketball-reference.com/leagues/NBA_2000.html',
+        'http://www.basketball-reference.com/leagues/NBA_2000.html'
     ]
 
     def parse(self, response):
