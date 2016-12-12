@@ -6,39 +6,39 @@ import re
 
 class BBallRefSpider(scrapy.Spider):
     name = "bbref"
-
-    # set the year
     start_urls = [
-        'http://www.basketball-reference.com/leagues/NBA_2015.html',
-        'http://www.basketball-reference.com/leagues/NBA_2014.html',
-        'http://www.basketball-reference.com/leagues/NBA_2013.html',
-        'http://www.basketball-reference.com/leagues/NBA_2012.html',
-        'http://www.basketball-reference.com/leagues/NBA_2011.html',
-        'http://www.basketball-reference.com/leagues/NBA_2010.html',
-        'http://www.basketball-reference.com/leagues/NBA_2009.html',
-        'http://www.basketball-reference.com/leagues/NBA_2008.html',
-        'http://www.basketball-reference.com/leagues/NBA_2007.html',
-        'http://www.basketball-reference.com/leagues/NBA_2006.html',
-        'http://www.basketball-reference.com/leagues/NBA_2005.html',
-        'http://www.basketball-reference.com/leagues/NBA_2004.html',
-        'http://www.basketball-reference.com/leagues/NBA_2003.html',
-        'http://www.basketball-reference.com/leagues/NBA_2002.html',
-        'http://www.basketball-reference.com/leagues/NBA_2001.html',
+        'http://www.basketball-reference.com/leagues/NBA_1999.html',
         'http://www.basketball-reference.com/leagues/NBA_2000.html',
-        'http://www.basketball-reference.com/leagues/NBA_2000.html'
+        'http://www.basketball-reference.com/leagues/NBA_2001.html',
+        'http://www.basketball-reference.com/leagues/NBA_2002.html',
+        'http://www.basketball-reference.com/leagues/NBA_2003.html',
+        'http://www.basketball-reference.com/leagues/NBA_2004.html',    
+        'http://www.basketball-reference.com/leagues/NBA_2005.html',
+        'http://www.basketball-reference.com/leagues/NBA_2006.html',
+        'http://www.basketball-reference.com/leagues/NBA_2007.html'#,
+        'http://www.basketball-reference.com/leagues/NBA_2008.html',
+        'http://www.basketball-reference.com/leagues/NBA_2009.html',
+        'http://www.basketball-reference.com/leagues/NBA_2010.html',
+        'http://www.basketball-reference.com/leagues/NBA_2011.html',
+        'http://www.basketball-reference.com/leagues/NBA_2012.html',    
+        'http://www.basketball-reference.com/leagues/NBA_2013.html',
+        'http://www.basketball-reference.com/leagues/NBA_2014.html',
+        'http://www.basketball-reference.com/leagues/NBA_2015.html',
+        'http://www.basketball-reference.com/leagues/NBA_2016.html',
+        'http://www.basketball-reference.com/leagues/NBA_2017.html'
     ]
 
-    def parse(self, response):
-        east = response.css('#confs_standings_E a::attr(href)').extract()
-        west = response.css('#confs_standings_W a::attr(href)').extract()
-        urls = east + west
 
+    def parse(self, response):
+        east = response.css('#div_divs_standings_E a::attr(href)').extract()
+        west = response.css('#div_divs_standings_W a::attr(href)').extract()
+        urls = east + west
         for url in urls:
             yield scrapy.Request('http://www.basketball-reference.com' + url, callback=self.parse_team) 
 
     def parse_team(self, response):        
         urls = response.css('#roster td[data-stat="player"] a::attr(href)').extract()
-        for url in urls:    #['/players/g/gallida01.html']: #urls:
+        for url in urls:
             yield scrapy.Request('http://www.basketball-reference.com' + url, callback=self.parse_player) 
 
     def parse_player(self, response): 
@@ -46,6 +46,7 @@ class BBallRefSpider(scrapy.Spider):
             comments = response.xpath('//comment()').re(regex) 
 
             name = response.css('h1::text').extract_first()
+
 
             # PER GAME TABLE
             per_game_seasons = response.css('#all_per_game table tbody tr[class=full_table]')
@@ -70,16 +71,14 @@ class BBallRefSpider(scrapy.Spider):
             # SHOOTING TABLE
             shooting_table = [x for x in comments if 'Shooting Table' in x][0]
             resp = Selector(text = shooting_table, type = "html")
-            shooting_seasons = resp.css('#div_shooting table tbody tr[class=full_table]')            
+            shooting_seasons = resp.css('#div_shooting table tbody tr[class=full_table]')         
             career_shooting = resp.css('#div_shooting table tfoot tr')[0]
             shooting_seasons.append(career_shooting)
 
-
             seasons = zip(per_game_seasons, per_poss_seasons, adv_seasons, shooting_seasons)
 
-
-
-            for per_game_season, per_poss_season, adv_season, shooting_season in seasons[-1]: # test if seasons[-1] gives me the current year I am in
+            for per_game_season, per_poss_season, adv_season, shooting_season in seasons:
+                print('\n\n\n\n\n\n\n', name, '\n\n\n\n\n\n\n')
                 item = {}
                 item['name'] = name
                 cols = []
