@@ -52,7 +52,7 @@ classifier.fit(df, labels)
 
 
 # # try out model selection
-parameters = {} #{'kernel' : ('linear')} # {'criterion' : ('gini', 'entropy'), 'splitter' : ('best', 'random')}
+parameters = {'C' : (20)} # {'criterion' : ('gini', 'entropy'), 'splitter' : ('best', 'random')}
 model = GridSearchCV(classifier, parameters, scoring='f1_micro')
 model.fit(df, labels)
 
@@ -137,7 +137,7 @@ for j in range(k):
     X_test = [row for row, f in zip(x_,folds) if f == j]
     Y_test = [val for val, f in zip(Y,folds) if f == j]
 
-    M = SVC(kernel='rbf', gamma=0.5)
+    M = SVC(kernel='rbf')
     # M = RandomForestClassifier()
     M = M.fit(X_train, Y_train)
 
@@ -161,7 +161,7 @@ print(model.best_params_)
 num_classes = 2
 classes = range(num_classes)
 class_names = ["Normal", "All-star"]
-title = str(k) + "-fold Confusion Matrix - SVC rbf kernel"
+title = 'NEW ' + str(k) + "-fold Confusion Matrix - SVC rbf kernel"
 
 # normalize the conf matrix
 if col2total > 0:
